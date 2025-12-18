@@ -1,0 +1,47 @@
+# Veil Project .gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Node
+node_modules/
+/.pnp
+.pnp.js
+
+# Next.js
+.next/
+out/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env*.local
+
+# Data & Models
+backend/data/raw/*.csv
+backend/models/*.pkl
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*

@@ -1,0 +1,5 @@
+# Backend Testing Requirements
+# For health checks and API testing
+
+requests>=2.31.0
+rich>=13.7.0  # For beautiful terminal output
