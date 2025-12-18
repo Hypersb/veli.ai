@@ -308,12 +308,6 @@ This is an educational project. Feel free to fork and adapt for your own portfol
 
 ---
 
-## 📄 License
-
-MIT License - feel free to use for learning and portfolio purposes.
-
----
-
 ## 👤 Author
 
 **Built for Learning & Interviews**
