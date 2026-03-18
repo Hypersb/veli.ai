@@ -1,75 +1,83 @@
 /**
- * Hero Section Component
- * Displays the main headline and introduction for Veil
+ * Hero section — full-width banner with headline, tagline, and stats.
  */
 
-import React from 'react';
-
 export default function Hero() {
+  const stats = [
+    { label: 'Accuracy',  value: '97.1%' },
+    { label: 'Precision', value: '96.3%' },
+    { label: 'F1-Score',  value: '94.8%' },
+    { label: 'Dataset',   value: '5 500+' },
+  ]
+
+  const features = [
+    { icon: '⚡', text: 'Instant Analysis'  },
+    { icon: '🧠', text: 'Explainable AI'    },
+    { icon: '🔒', text: 'Privacy First'     },
+    { icon: '🎯', text: '97%+ Accuracy'     },
+  ]
+
   return (
-    <div className="relative overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 -z-10" />
-      
-      {/* Animated background shapes */}
-      <div className="absolute top-0 left-0 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow" />
-      <div className="absolute top-0 right-0 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow animation-delay-2000" />
-      <div className="absolute -bottom-8 left-20 w-72 h-72 bg-indigo-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow animation-delay-4000" />
-      
-      {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24 lg:py-32">
-        <div className="text-center animate-fade-in">
-          {/* Badge */}
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-700 text-sm font-medium mb-8">
-            <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+    <section className="relative overflow-hidden bg-hero-gradient pt-24 pb-20 sm:pt-32 sm:pb-28">
+      {/* Animated background blobs */}
+      <div className="absolute top-0  left-0  w-96 h-96 bg-blue-600/20  rounded-full filter blur-3xl animate-pulse-slow pointer-events-none" />
+      <div className="absolute top-0  right-0 w-96 h-96 bg-purple-600/20 rounded-full filter blur-3xl animate-pulse-slow animation-delay-2000 pointer-events-none" />
+      <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-cyan-600/10  rounded-full filter blur-3xl animate-pulse-slow animation-delay-4000 pointer-events-none" />
+
+      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        {/* Badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-8 animate-fade-in">
+          <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+          AI-Powered Email Security
+        </div>
+
+        {/* Headline */}
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight animate-fade-in animation-delay-200">
+          Protect Your Inbox with{' '}
+          <span className="gradient-text">Veil</span>
+        </h1>
+
+        {/* Subheading */}
+        <p className="text-lg sm:text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-in animation-delay-400">
+          Advanced machine learning detects spam and phishing before they reach you —
+          with explainable confidence scores and real-time analysis.
+        </p>
+
+        {/* Feature pills */}
+        <div className="flex flex-wrap justify-center gap-3 mb-14 animate-fade-in animation-delay-400">
+          {features.map(({ icon, text }) => (
+            <div
+              key={text}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 text-sm"
+            >
+              <span>{icon}</span>
+              <span>{text}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Stats row */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 animate-fade-in animation-delay-600">
+          {stats.map(({ label, value }) => (
+            <div
+              key={label}
+              className="glass-card rounded-xl p-4 text-center"
+            >
+              <div className="text-2xl font-bold text-white">{value}</div>
+              <div className="text-xs text-slate-400 mt-0.5">{label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="mt-12 animate-bounce-slow">
+          <a href="#scanner" aria-label="Scroll to scanner">
+            <svg className="w-5 h-5 mx-auto text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
-            AI-Powered Email Security
-          </div>
-
-          {/* Main Heading */}
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-            Protect Your Inbox with{' '}
-            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              Veil
-            </span>
-          </h1>
-
-          {/* Subheading */}
-          <p className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Advanced machine learning technology to detect spam and phishing attempts before they reach you.
-          </p>
-
-          {/* Features */}
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-600 mb-12">
-            <div className="flex items-center">
-              <svg className="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              Instant Analysis
-            </div>
-            <div className="flex items-center">
-              <svg className="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              High Accuracy
-            </div>
-            <div className="flex items-center">
-              <svg className="w-5 h-5 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              Privacy First
-            </div>
-          </div>
-
-          {/* Scroll indicator */}
-          <div className="animate-bounce">
-            <svg className="w-6 h-6 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </div>
+          </a>
         </div>
       </div>
-    </div>
-  );
+    </section>
+  )
 }

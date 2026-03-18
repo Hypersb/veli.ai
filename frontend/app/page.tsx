@@ -1,11 +1,15 @@
-import Hero from '@/components/Hero'
-import EmailScanner from '@/components/EmailScanner'
+import Hero          from '@/components/Hero'
+import EmailScanner  from '@/components/EmailScanner'
+import StatsSection  from '@/components/StatsSection'
+import AboutSection  from '@/components/AboutSection'
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <>
       <Hero />
       <EmailScanner />
-    </main>
+      <StatsSection />
+      <AboutSection />
+    </>
   )
 }

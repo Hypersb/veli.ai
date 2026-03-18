@@ -1,13 +1,29 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
 export const metadata: Metadata = {
-  title: 'Veil - AI Email Spam & Phishing Detection',
-  description: 'Advanced machine learning technology to detect spam and phishing attempts in emails',
-  keywords: ['email security', 'spam detection', 'phishing detection', 'AI', 'machine learning'],
+  title: 'Veil — AI Email Spam & Phishing Detection',
+  description:
+    'Advanced machine learning technology to detect spam and phishing attempts before they reach you. Built with FastAPI, Next.js 15, and scikit-learn.',
+  keywords: [
+    'email security',
+    'spam detection',
+    'phishing detection',
+    'AI',
+    'machine learning',
+    'FastAPI',
+    'Next.js',
+  ],
+  openGraph: {
+    title:       'Veil — AI Email Spam & Phishing Detection',
+    description: 'Real-time spam and phishing detection powered by Logistic Regression + TF-IDF.',
+    type:        'website',
+  },
 }
 
 export default function RootLayout({
@@ -16,23 +32,30 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        {children}
-        
-        {/* Footer */}
-        <footer className="bg-gray-50 border-t border-gray-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="text-center">
-              <p className="text-gray-600 text-sm">
-                Built with FastAPI, Next.js, and scikit-learn
-              </p>
-              <p className="text-gray-500 text-xs mt-2">
-                © 2025 Veil. Educational project for demonstration purposes.
-              </p>
-            </div>
-          </div>
-        </footer>
+    <html lang="en" suppressHydrationWarning>
+      {/*
+        This inline script runs synchronously before the page renders to
+        set the correct dark/light class and prevent a flash of wrong theme.
+      */}
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                var t = localStorage.getItem('theme');
+                var sys = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (t === 'dark' || (!t && sys)) {
+                  document.documentElement.classList.add('dark');
+                }
+              } catch(e) {}
+            `,
+          }}
+        />
+      </head>
+      <body className={`${inter.variable} font-sans bg-white dark:bg-navy-950 min-h-screen`}>
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   )

@@ -37,9 +37,11 @@ Thumbs.db
 .env.local
 .env*.local
 
-# Data & Models
+# Data (raw dataset — too large for git)
 backend/data/raw/*.csv
-backend/models/*.pkl
+
+# Models are included in git (tiny: ~130 KB total) so deployment doesn't need to retrain
+# backend/models/*.pkl
 
 # Logs
 *.log
