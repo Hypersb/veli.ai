@@ -150,9 +150,8 @@ export default function LandingPage() {
       {/* ── Navbar ─────────────────────────────────────────────────────────── */}
       <header className="sticky top-0 z-50 border-b border-white/5 bg-slate-950/80 backdrop-blur-md">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <Image src="/logo.svg" alt="Veil" width={30} height={30} className="rounded-lg" priority />
-            <span className="font-bold text-white">Veil</span>
+          <div className="flex items-center">
+            <Image src="/veil-logo.svg" alt="Veil" width={140} height={47} priority />
           </div>
 
           <nav className="hidden md:flex items-center gap-1 text-sm">
@@ -371,10 +370,8 @@ export default function LandingPage() {
       {/* ── Footer ─────────────────────────────────────────────────────────── */}
       <footer className="border-t border-white/5 py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <Image src="/logo.svg" alt="Veil" width={22} height={22} className="rounded" />
-            <span className="text-sm font-semibold text-white">Veil</span>
-            <span className="text-slate-600 text-sm">— AI Email Security</span>
+          <div className="flex items-center">
+            <Image src="/veil-logo.svg" alt="Veil" width={100} height={33} />
           </div>
           <p className="text-xs text-slate-600">
             © {new Date().getFullYear()} Veil. Educational portfolio project.

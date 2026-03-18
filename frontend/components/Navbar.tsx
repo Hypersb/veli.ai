@@ -70,19 +70,19 @@ export default function Navbar() {
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
 
-        {/* Logo */}
+        {/* Logo — favicon icon + "Veil" wordmark (works in light + dark) */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 flex-shrink-0">
-            <Image
-              src="/logo.svg"
-              alt="Veil logo"
-              width={32}
-              height={32}
-              className="rounded-lg"
-              priority
-            />
-          </div>
-          <span className="text-base font-bold text-gray-900 dark:text-white">Veil</span>
+          <Image
+            src="/veil-favicon.svg"
+            alt="Veil"
+            width={28}
+            height={28}
+            className="flex-shrink-0"
+            priority
+          />
+          <span className="text-base font-bold text-gray-900 dark:text-white tracking-tight">
+            Veil
+          </span>
         </Link>
 
         {/* Nav links */}

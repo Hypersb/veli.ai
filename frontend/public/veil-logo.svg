@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 160" width="480" height="160">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00D4FF"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="scanGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00D4FF" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#00D4FF" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="shieldClip">
+      <path d="M80 28 L116 28 L116 88 Q116 112 80 124 Q44 112 44 88 L44 28 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background -->
+  <rect width="480" height="160" fill="#060B18" rx="16"/>
+
+  <!-- Shield body -->
+  <path d="M80 26 L118 26 L118 90 Q118 116 80 128 Q42 116 42 90 L42 26 Z" fill="#0D1B35" stroke="url(#shieldGrad)" stroke-width="1.5"/>
+
+  <!-- Shield inner glow band -->
+  <rect x="42" y="72" width="76" height="3" fill="url(#scanGrad)" clip-path="url(#shieldClip)" opacity="0.9"/>
+
+  <!-- V mark inside shield -->
+  <path d="M58 44 L80 88 L102 44" fill="none" stroke="url(#shieldGrad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+
+  <!-- Small dot at V bottom -->
+  <circle cx="80" cy="92" r="3" fill="#00D4FF" opacity="0.6"/>
+
+  <!-- Wordmark: Veil -->
+  <text x="140" y="90" font-family="'SF Pro Display', 'Segoe UI', 'Helvetica Neue', sans-serif" font-size="52" font-weight="700" letter-spacing="-2" fill="#FFFFFF">Veil</text>
+
+  <!-- AI badge -->
+  <rect x="290" y="58" width="36" height="22" rx="5" fill="#00D4FF" opacity="0.15" stroke="#00D4FF" stroke-width="1"/>
+  <text x="308" y="74" font-family="'SF Pro Display', 'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#00D4FF" text-anchor="middle" letter-spacing="1">AI</text>
+
+  <!-- Tagline -->
+  <text x="140" y="116" font-family="'SF Pro Display', 'Segoe UI', sans-serif" font-size="13" font-weight="400" fill="#4A7FA8" letter-spacing="2">EMAIL THREAT DETECTION</text>
+
+  <!-- Decorative dots top right -->
+  <circle cx="430" cy="32" r="2" fill="#00D4FF" opacity="0.3"/>
+  <circle cx="442" cy="32" r="2" fill="#7C3AED" opacity="0.3"/>
+  <circle cx="454" cy="32" r="2" fill="#00D4FF" opacity="0.2"/>
+  <circle cx="430" cy="44" r="1.5" fill="#4A7FA8" opacity="0.2"/>
+  <circle cx="442" cy="44" r="1.5" fill="#4A7FA8" opacity="0.2"/>
+</svg>

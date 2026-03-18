@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00D4FF"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00D4FF" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#00D4FF"/>
+      <stop offset="100%" stop-color="#00D4FF" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="sc">
+      <path d="M16 2 L30 2 L30 20 Q30 28 16 31 Q2 28 2 20 L2 2 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background circle -->
+  <rect width="32" height="32" rx="8" fill="#060B18"/>
+
+  <!-- Shield -->
+  <path d="M16 2 L30 2 L30 20 Q30 28 16 31 Q2 28 2 20 L2 2 Z" fill="#0D1B35" stroke="url(#g1)" stroke-width="1.2"/>
+
+  <!-- Scan line -->
+  <rect x="2" y="15.5" width="28" height="1.5" fill="url(#g2)" clip-path="url(#sc)" opacity="0.8"/>
+
+  <!-- V mark -->
+  <path d="M9 8 L16 22 L23 8" fill="none" stroke="url(#g1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

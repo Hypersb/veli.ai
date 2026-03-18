@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   title:       'Veil — AI Email Security',
   description: 'Machine learning-powered spam and phishing detection. Analyse emails in real-time with explainable AI.',
   keywords:    ['email security', 'spam detection', 'phishing detection', 'machine learning', 'FastAPI', 'Next.js'],
+  icons: {
+    icon:      '/veil-favicon.svg',
+    shortcut:  '/veil-favicon.svg',
+    apple:     '/veil-favicon.svg',
+  },
   openGraph: {
     title:       'Veil — AI Email Security',
     description: 'Real-time spam and phishing detection powered by Logistic Regression and TF-IDF.',
