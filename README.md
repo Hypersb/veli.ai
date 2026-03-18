@@ -1,334 +1,369 @@
-# 🛡️ Veil - AI Email Spam & Phishing Detection
-
 <div align="center">
 
-![Veil Logo](https://via.placeholder.com/150x150/4F46E5/FFFFFF?text=Veil)
+<img src="frontend/public/veil-logo.svg" alt="Veil" width="320" />
 
-**Advanced machine learning technology to detect spam and phishing attempts before they reach you.**
+<br/>
+<br/>
 
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.104.1-009688?logo=fastapi)](https://fastapi.tiangolo.com/)
-[![Next.js](https://img.shields.io/badge/Next.js-15.0-000000?logo=next.js)](https://nextjs.org/)
-[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3.2-F7931E?logo=scikit-learn)](https://scikit-learn.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-3178C6?logo=typescript)](https://www.typescriptlang.org/)
+**AI-powered email spam and phishing detection — real-time, explainable, production-ready.**
 
-[Demo](#-demo) • [Features](#-features) • [Tech Stack](#-tech-stack) • [Setup](#-setup) • [Architecture](#-architecture)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.104.1-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Next.js](https://img.shields.io/badge/Next.js-15-000000?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.8-F7931E?style=flat-square&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org/)
+[![Docker](https://img.shields.io/badge/Docker-ready-2496ED?style=flat-square&logo=docker&logoColor=white)](https://docker.com/)
+
+[Features](#features) · [Architecture](#architecture) · [Setup](#setup) · [API Reference](#api-reference) · [Deployment](#deployment)
 
 </div>
 
 ---
 
-## 📖 About
+## About
 
-Veil is a full-stack AI-powered email security application that uses machine learning to identify spam and phishing attempts. Built with modern technologies and designed for portfolio presentations and technical interviews.
+Veil is a full-stack AI application that analyses emails for spam and phishing in real time. It combines a trained Logistic Regression model with a domain-specific heuristic layer to catch both pattern-based spam and targeted phishing attacks that ML alone might miss.
 
-### Why Veil?
+Every prediction comes with a confidence score, a plain-language explanation, and the top words that drove the result — making the model fully transparent and explainable.
 
-- 🎯 **Real-world Problem**: Email security is critical in today's digital landscape
-- 🧠 **Explainable AI**: Classical ML models that are easy to understand and justify
-- 🚀 **Production-Ready**: Professional code structure, error handling, and documentation
-- 📊 **Measurable Results**: Clear metrics and evaluation criteria
-- 🎨 **Beautiful UI**: Modern, responsive design with Tailwind CSS
-
----
-
-## ✨ Features
-
-### Core Functionality
-- ✅ Real-time email spam detection
-- ✅ Confidence score for predictions
-- ✅ Clean, intuitive user interface
-- ✅ RESTful API with FastAPI
-- ✅ Detailed model evaluation metrics
-
-### Technical Highlights
-- **Machine Learning**: Logistic Regression with TF-IDF features
-- **Preprocessing**: Robust text cleaning and normalization
-- **API**: FastAPI with automatic documentation
-- **Frontend**: Next.js 15 with TypeScript and Tailwind CSS
-- **Type Safety**: Full TypeScript + Pydantic validation
+**Why it was built:**
+- Demonstrate a complete ML engineering workflow — data, training, serving, and UI
+- Show that classical ML can be both highly accurate and fully interpretable
+- Provide a portfolio-ready project with real deployment infrastructure
 
 ---
 
-## 🛠️ Tech Stack
+## Features
 
-### Backend
-- **Framework**: FastAPI 0.104.1
-- **ML Library**: scikit-learn 1.3.2
-- **Data Processing**: pandas, numpy
-- **API Server**: Uvicorn
-
-### Frontend
-- **Framework**: Next.js 15
-- **Language**: TypeScript 5.3
-- **Styling**: Tailwind CSS 3.4
-- **HTTP Client**: Fetch API
-
-### Machine Learning
-- **Algorithm**: Logistic Regression
-- **Features**: TF-IDF (3000 features, unigrams + bigrams)
-- **Evaluation**: Accuracy, Precision, Recall, F1-Score
-- **Dataset**: SMS Spam Collection (~5,500 messages)
+| Feature | Details |
+|---------|---------|
+| Real-time detection | Analyses emails in under 100 ms |
+| Four-class output | Safe, Suspicious, Spam, or Phishing |
+| Confidence scoring | Every prediction includes a 0–1 confidence value |
+| Uncertainty flagging | Results below 70% confidence are marked as uncertain |
+| Feature importance | Top 5 words that drove the prediction (TF-IDF × LR coefficients) |
+| URL analysis | Detects IP-based URLs, URL shorteners, typosquatted domains |
+| Batch scanning | Analyse up to 50 emails in a single API call |
+| Scan history | Last 10 scans stored in localStorage |
+| Dark mode | Persisted preference, no flash on load |
+| Copy to clipboard | One-click result export |
+| Landing page | Separate marketing page at `/` |
+| Rate limiting | 10 req/min (predict), 5 req/min (batch) per IP |
+| Docker support | Single `docker compose up` to run everything |
 
 ---
 
-## 🚀 Quick Setup
+## Model Performance
 
-> **⚡ TL;DR**: See [QUICKSTART.md](QUICKSTART.md) for a 5-minute setup guide!
+Trained on the [SMS Spam Collection](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset) dataset.
+Split: 80% train (4 457 samples) / 20% test (1 115 samples), `random_state=42`.
 
-### Prerequisites
-- Python 3.8+
-- Node.js 18+
-- npm or yarn
+| Metric | Score | Notes |
+|--------|-------|-------|
+| Accuracy | 96.9% | Overall on test set |
+| Precision | 99.1% | Spam class |
+| Recall | 77.2% | Spam class |
+| F1-Score | 96.7% | Weighted average |
 
-### 1. Clone or Download
-
-```bash
-# If using git:
-git clone https://github.com/yourusername/veil.git
-cd veil
-
-# Or simply download and extract the zip file
-```
-
-### 2. Backend Setup
-
-```bash
-# Navigate to backend
-cd backend
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Download dataset
-# Place spam.csv in backend/data/raw/
-# Download from: https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset
-
-# Train model
-cd ml
-python train.py
-
-# Start API server
-cd ..
-python -m uvicorn app.main:app --reload
-```
-
-API will be available at http://localhost:8000
-
-### 3. Frontend Setup
-
-```bash
-# Navigate to frontend (from project root)
-cd frontend
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
-Frontend will be available at http://localhost:3000
+**Algorithm:** Logistic Regression
+**Features:** TF-IDF, 3 000 features, unigrams + bigrams, `min_df=2`, English stop words removed
 
 ---
 
-## 📊 Demo
-
-### Homepage
-![Homepage Screenshot](https://via.placeholder.com/800x450/EFF6FF/1E40AF?text=Veil+Homepage)
-
-### Email Scanning
-![Scanning Demo](https://via.placeholder.com/800x450/F0FDF4/15803D?text=Email+Scanner)
-
-### Results Display
-![Results Demo](https://via.placeholder.com/800x450/FEF2F2/B91C1C?text=Detection+Results)
-
----
-
-## 🏗️ Architecture
-
-### System Architecture
+## Architecture
 
 ```
-┌─────────────┐         ┌─────────────┐         ┌─────────────┐
-│   Browser   │ ──────> │  Next.js    │ ──────> │   FastAPI   │
-│  (Client)   │ <────── │  Frontend   │ <────── │   Backend   │
-└─────────────┘         └─────────────┘         └─────────────┘
-                                                        │
-                                                        │
-                                                        ▼
-                                                ┌───────────────┐
-                                                │  ML Model     │
-                                                │  (scikit-learn)│
-                                                └───────────────┘
+Browser
+  └── Next.js 15 (/ landing page, /scanner app)
+        └── FastAPI backend (port 8000)
+              ├── app/main.py       — routes, middleware, rate limiting
+              ├── app/predict.py    — ML + heuristic hybrid predictor
+              ├── app/models.py     — Pydantic request/response schemas
+              ├── app/config.py     — dotenv configuration
+              └── ml/
+                    ├── train.py    — training pipeline
+                    ├── preprocess.py
+                    └── evaluate.py
 ```
 
 ### ML Pipeline
 
 ```
-Raw Email Text
-      ↓
-Text Preprocessing (clean_text)
-      ↓
-TF-IDF Vectorization
-      ↓
-Logistic Regression Model
-      ↓
-Prediction + Confidence Score
+Raw email text
+  → Text preprocessing  (lowercase, strip URLs/HTML, remove special chars)
+  → TF-IDF vectorisation (3 000 features, unigrams + bigrams)
+  → Logistic Regression  (trained, loaded once at startup)
+  → Heuristic layer      (IP URLs, shorteners, urgency keywords, generic greetings)
+  → Combined decision    → Safe | Suspicious | Spam | Phishing
 ```
 
-### API Flow
+### API Endpoints
 
-```
-POST /api/predict
-      ↓
-Validate Request (Pydantic)
-      ↓
-Preprocess Text
-      ↓
-Vectorize Features
-      ↓
-Model Prediction
-      ↓
-Return JSON Response
-```
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/predict` | Analyse a single email |
+| `POST` | `/api/batch` | Analyse up to 50 emails |
+| `GET` | `/api/health` | Health check + model status |
+| `GET` | `/api/stats` | Model performance metrics |
+| `GET` | `/docs` | Auto-generated OpenAPI docs |
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 veil/
 ├── backend/
 │   ├── app/
-│   │   ├── main.py           # FastAPI application
-│   │   ├── predict.py        # Prediction logic
-│   │   ├── models.py         # Pydantic schemas
-│   │   └── config.py         # Configuration
+│   │   ├── main.py           FastAPI app, routes, middleware
+│   │   ├── predict.py        Hybrid ML + heuristic predictor
+│   │   ├── models.py         Pydantic schemas
+│   │   └── config.py         dotenv configuration
 │   ├── ml/
-│   │   ├── train.py          # Model training
-│   │   ├── preprocess.py     # Text preprocessing
-│   │   └── evaluate.py       # Evaluation metrics
-│   ├── data/raw/             # Dataset storage
-│   ├── models/               # Trained models
+│   │   ├── train.py          Training pipeline
+│   │   ├── preprocess.py     Text cleaning utilities
+│   │   └── evaluate.py       Evaluation metrics
+│   ├── models/
+│   │   ├── model.pkl         Trained Logistic Regression (committed, ~20 KB)
+│   │   └── vectorizer.pkl    Fitted TF-IDF vectorizer (~110 KB)
+│   ├── data/raw/             Place spam.csv here to retrain
+│   ├── .env.example          Environment variable reference
+│   ├── railway.json          Railway deployment config
+│   ├── Dockerfile
 │   └── requirements.txt
 │
 ├── frontend/
 │   ├── app/
-│   │   ├── page.tsx          # Homepage
-│   │   ├── layout.tsx        # Root layout
-│   │   └── globals.css       # Global styles
+│   │   ├── page.tsx          Landing page (/)
+│   │   ├── layout.tsx        Root layout + theme script
+│   │   ├── globals.css
+│   │   └── scanner/
+│   │       ├── layout.tsx    Scanner layout (Navbar + Footer)
+│   │       └── page.tsx      Scanner app (/scanner)
 │   ├── components/
-│   │   ├── Hero.tsx          # Hero section
-│   │   ├── EmailScanner.tsx  # Email form
-│   │   └── ResultDisplay.tsx # Results UI
+│   │   ├── Navbar.tsx        Sticky navbar with dark mode toggle
+│   │   ├── Footer.tsx
+│   │   ├── EmailScanner.tsx  Main form + scan history
+│   │   ├── ResultDisplay.tsx Results, confidence bar, feature words
+│   │   ├── StatsSection.tsx  Model performance cards
+│   │   └── AboutSection.tsx  ML pipeline explainer
 │   ├── lib/
-│   │   └── api.ts            # API client
+│   │   └── api.ts            Typed API client + localStorage history
+│   ├── public/
+│   │   ├── veil-logo.svg     Full horizontal logo
+│   │   └── veil-favicon.svg  32×32 shield icon
+│   ├── vercel.json           Vercel deployment config
 │   └── package.json
 │
+├── docker-compose.yml        Run everything with one command
 └── README.md
 ```
 
 ---
 
-## 🧪 Model Performance
+## Setup
 
-### Training Results
+### Prerequisites
 
-| Metric    | Score  |
-|-----------|--------|
-| Accuracy  | ~97%   |
-| Precision | ~96%   |
-| Recall    | ~93%   |
-| F1-Score  | ~94%   |
+- Python 3.11+
+- Node.js 18+
 
-*Results on SMS Spam Collection test set (20% of data)*
+### 1. Clone
 
-### Example Predictions
+```bash
+git clone https://github.com/Hypersb/veli.ai.git
+cd veli.ai
+```
 
-```python
-# Safe Email
-"Hi John, let's meet for coffee tomorrow at 3pm"
-→ Prediction: Safe (98.2% confidence)
+### 2. Backend
 
-# Spam Email
-"CONGRATULATIONS! You won $1000! Click here NOW!"
-→ Prediction: Spam (96.7% confidence)
+```bash
+cd backend
+
+# Create and activate virtual environment
+python -m venv venv
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # macOS / Linux
+
+# Install dependencies
+pip install -r requirements.txt
+
+# The trained model is already committed — no dataset download needed.
+# To retrain from scratch:
+#   1. Download spam.csv from https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset
+#   2. Place it in backend/data/raw/
+#   3. Run: cd ml && python train.py
+
+# Copy environment config
+copy .env.example .env     # Windows
+# cp .env.example .env     # macOS / Linux
+
+# Start the API server
+python -m uvicorn app.main:app --reload
+```
+
+API available at **http://localhost:8000**
+Interactive docs at **http://localhost:8000/docs**
+
+### 3. Frontend
+
+```bash
+cd frontend
+
+# Install dependencies
+npm install
+
+# Copy environment config
+copy .env.example .env.local     # Windows
+# cp .env.example .env.local     # macOS / Linux
+# Set NEXT_PUBLIC_API_URL=http://localhost:8000
+
+# Start the dev server
+npm run dev
+```
+
+Landing page at **http://localhost:3000**
+Scanner app at **http://localhost:3000/scanner**
+
+### 4. Docker (optional — runs both with one command)
+
+```bash
+# From the project root
+docker compose up
 ```
 
 ---
 
-## 🎓 Interview Talking Points
+## API Reference
 
-### Machine Learning
-- **Why Logistic Regression?** Interpretable, fast, and effective for text classification
-- **Feature Engineering**: TF-IDF captures word importance and frequency
-- **Preprocessing**: Critical for model performance - removes noise, normalizes text
-- **Evaluation**: Multiple metrics to avoid single-metric bias
+### `POST /api/predict`
 
-### Software Engineering
-- **API Design**: RESTful, documented with OpenAPI (Swagger)
-- **Type Safety**: Pydantic (Python) and TypeScript for runtime validation
-- **Error Handling**: Graceful failures with informative error messages
-- **Code Organization**: Separation of concerns, modular design
+```json
+// Request
+{ "email_text": "WINNER! You have been selected. Claim your prize NOW!" }
 
-### Scalability Considerations
-- Model loaded once at startup (avoid repeated I/O)
-- Stateless API (horizontal scaling friendly)
-- Async FastAPI for concurrent requests
-- Can integrate Redis for caching predictions
+// Response
+{
+  "prediction": "Suspicious",
+  "confidence": 0.7419,
+  "message": "Suspicious email detected (ML confidence: 74.2%, Risk score: 6)...",
+  "top_features": [
+    { "word": "claim prize", "importance": 1.0 },
+    { "word": "winner",      "importance": 0.81 },
+    { "word": "selected",    "importance": 0.41 }
+  ],
+  "risk_level": "medium"
+}
+```
 
-### Potential Improvements
-- Add deep learning model (LSTM/BERT) for comparison
-- Implement phishing-specific features (URL analysis, sender verification)
-- Add user feedback loop to improve model
-- Deploy with Docker + Kubernetes
-- Add authentication and rate limiting
+**Prediction labels:** `Safe` · `Suspicious` · `Spam` · `Phishing`
+**Risk levels:** `low` · `medium` · `high` · `critical`
+
+### `POST /api/batch`
+
+```json
+// Request
+{ "emails": ["email one...", "email two...", "..."] }
+
+// Response
+{
+  "results": [ ...BatchPredictionItem[] ],
+  "total": 3,
+  "spam_count": 2,
+  "safe_count": 1,
+  "processing_time_ms": 14.2
+}
+```
+
+### `GET /api/health`
+
+```json
+{ "status": "healthy", "model_loaded": true, "message": "Model is ready", "version": "v1" }
+```
+
+### `GET /api/stats`
+
+```json
+{
+  "model_stats": {
+    "accuracy": 0.9712, "precision": 0.9634,
+    "recall": 0.9328,   "f1_score": 0.9479,
+    "training_samples": 4457,
+    "model_type": "Logistic Regression + TF-IDF (3 000 features, unigrams + bigrams)",
+    "features_count": 3000
+  },
+  "api_version": "v1",
+  "status": "operational"
+}
+```
 
 ---
 
-## 🔮 Future Enhancements
+## Deployment
 
-- [ ] Deep learning model integration (BERT)
-- [ ] Email header analysis
-- [ ] URL reputation checking
-- [ ] Multi-language support
-- [ ] Browser extension
-- [ ] Mobile app (React Native)
-- [ ] Real-time email monitoring
+The frontend and backend are deployed separately.
 
----
+### Frontend → Vercel
 
-## 🤝 Contributing
+1. Go to [vercel.com/new](https://vercel.com/new) and import this repository
+2. Set **Root Directory** to `frontend`
+3. Add environment variable: `NEXT_PUBLIC_API_URL` = your Railway backend URL
+4. Deploy
 
-This is an educational project. Feel free to fork and adapt for your own portfolio!
+### Backend → Railway
 
----
-
-## 👤 Author
-
-**Built for Learning & Interviews**
-- 💼 Perfect for portfolio demonstrations
-- 🎯 Interview-ready with explainable AI
-- 📚 Educational resource for ML enthusiasts
+1. Go to [railway.app](https://railway.app) and create a project from this repository
+2. Set **Root Directory** to `backend`
+3. Railway reads `railway.json` automatically — no further config needed
+4. Add environment variable: `ALLOWED_ORIGINS` = your Vercel frontend URL
+5. Deploy
 
 ---
 
-## 🙏 Acknowledgments
+## Environment Variables
 
-- **Dataset**: UCI Machine Learning Repository - SMS Spam Collection
-- **Libraries**: FastAPI, Next.js, scikit-learn, Tailwind CSS
-- **Inspiration**: Real-world email security challenges
+### Backend (`backend/.env`)
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `API_HOST` | `0.0.0.0` | Server bind address |
+| `API_PORT` | `8000` | Server port |
+| `ALLOWED_ORIGINS` | `http://localhost:3000` | Comma-separated CORS origins |
+| `RATE_LIMIT` | `10/minute` | Predict endpoint rate limit per IP |
+| `BATCH_RATE_LIMIT` | `5/minute` | Batch endpoint rate limit per IP |
+| `LOG_LEVEL` | `info` | Uvicorn log level |
+
+### Frontend (`frontend/.env.local`)
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `NEXT_PUBLIC_API_URL` | `http://localhost:8000` | Backend API base URL |
 
 ---
 
-<div align="center">
+## Interview Talking Points
 
-**⭐ Star this repo if you found it helpful!**
+**Why Logistic Regression?**
+Interpretable, fast, and effective for text classification. The model's coefficients directly show which words push a prediction towards spam — critical for explaining decisions in a security context.
 
-Made with ❤️ for learning and interviews
+**Why a heuristic layer on top of ML?**
+The model catches statistical patterns but misses domain-specific signals like IP-based URLs, URL shorteners, and typosquatted domains. Layering rule-based detection reduces false negatives for targeted phishing.
 
-</div>
+**Why TF-IDF over word embeddings?**
+TF-IDF is interpretable and fast. For a portfolio project the priority is being able to explain every decision, not maximising accuracy at the cost of a black box.
+
+**How is feature importance calculated?**
+For each prediction, non-zero TF-IDF features in the input are multiplied by the corresponding Logistic Regression coefficient. The product measures each word's contribution to the spam probability. The top five are returned with the response.
+
+**Scalability considerations:**
+- Model is loaded once at startup, not per request
+- Stateless API — horizontally scalable behind a load balancer
+- Rate limiting keeps compute bounded without authentication
+- Async FastAPI handles concurrent requests efficiently
+
+---
+
+## Acknowledgements
+
+- Dataset: [SMS Spam Collection — UCI ML Repository](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset)
+- Libraries: FastAPI, Next.js, scikit-learn, Tailwind CSS, slowapi
