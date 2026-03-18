@@ -11,10 +11,10 @@ export default function Hero() {
   ]
 
   const features = [
-    { icon: '⚡', text: 'Instant Analysis'  },
-    { icon: '🧠', text: 'Explainable AI'    },
-    { icon: '🔒', text: 'Privacy First'     },
-    { icon: '🎯', text: '97%+ Accuracy'     },
+    { text: 'Instant Analysis'  },
+    { text: 'Explainable AI'    },
+    { text: 'Privacy First'     },
+    { text: '96.9% Accuracy'    },
   ]
 
   return (
@@ -43,17 +43,16 @@ export default function Hero() {
           with explainable confidence scores and real-time analysis.
         </p>
 
-        {/* Feature pills */}
-        <div className="flex flex-wrap justify-center gap-3 mb-14 animate-fade-in animation-delay-400">
-          {features.map(({ icon, text }) => (
-            <div
-              key={text}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 text-sm"
-            >
-              <span>{icon}</span>
-              <span>{text}</span>
-            </div>
-          ))}
+          {/* Feature pills */}
+          <div className="flex flex-wrap justify-center gap-3 mb-14 animate-fade-in animation-delay-400">
+            {features.map(({ text }) => (
+              <div
+                key={text}
+                className="flex items-center px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 text-sm"
+              >
+                {text}
+              </div>
+            ))}
         </div>
 
         {/* Stats row */}

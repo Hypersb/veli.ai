@@ -352,15 +352,15 @@ class SpamPredictor:
             if risk >= 8:
                 label = "Phishing"
                 message = (
-                    f"🚨 CRITICAL: Despite safe-looking content, {risk} strong phishing "
+                    f"Critical: Despite safe-looking content, {risk} strong phishing "
                     "indicators were detected. This is likely a sophisticated phishing attempt. "
-                    "Do not click links or provide information."
+                    "Do not click any links or provide personal information."
                 )
                 warnings = []
                 if h["has_ip_urls"]:
-                    warnings.append("🚨 IP-based URL(s) detected")
+                    warnings.append("IP-based URL(s) detected")
                 if h["has_shorteners"]:
-                    warnings.append("URL shortener (destination hidden)")
+                    warnings.append("URL shortener present (destination hidden)")
                 if h["has_suspicious_domains"]:
                     warnings.append(f"Suspicious domains: {', '.join(h['suspicious_domains'][:2])}")
                 if h["has_financial_keywords"]:
@@ -370,14 +370,14 @@ class SpamPredictor:
                 if h["has_generic_greeting"]:
                     warnings.append("Generic greeting (no personalisation)")
                 if h["excessive_caps"]:
-                    warnings.append("EXCESSIVE CAPS (pressure tactic)")
+                    warnings.append("Excessive capitalisation (pressure tactic)")
                 if warnings:
-                    message += f"\n\n🔍 Detected: {' | '.join(warnings)}"
+                    message += f"\n\nDetected: {' | '.join(warnings)}"
 
             elif risk >= 4:
                 label = "Suspicious"
                 message = (
-                    f"⚠️ Email appears safe but contains {risk} phishing indicator(s). "
+                    f"Email appears safe but contains {risk} phishing indicator(s). "
                     "Verify sender authenticity before taking any action."
                 )
                 warnings = []
@@ -396,7 +396,7 @@ class SpamPredictor:
                 label = "Suspicious"
                 message = (
                     f"Model confidence is low ({ml_conf:.1%}). "
-                    "Email may be safe but verify sender and content carefully."
+                    "Email may be safe but verify the sender and content carefully."
                 )
                 if risk > 0:
                     message += f" Detected {risk} phishing indicator(s)."
@@ -413,13 +413,13 @@ class SpamPredictor:
             if risk >= 8 or (ml_conf > 0.85 and risk >= 4):
                 label = "Phishing"
                 message = (
-                    f"🚨 PHISHING ALERT: High-confidence detection ({ml_conf:.1%}). "
+                    f"Phishing alert: High-confidence detection ({ml_conf:.1%}). "
                     f"Risk score: {risk}. "
                     "Do not click links, download attachments, or provide personal information."
                 )
                 warnings = []
                 if h["has_ip_urls"]:
-                    warnings.append("🚨 IP-based URL(s)")
+                    warnings.append("IP-based URL(s)")
                 if h["has_shorteners"]:
                     warnings.append("URL shortener used")
                 if h["has_suspicious_domains"]:
@@ -427,18 +427,18 @@ class SpamPredictor:
                 if h["has_financial_keywords"]:
                     warnings.append(f"Financial data: {', '.join(h['financial_keywords'][:2])}")
                 if h["has_phishing_keywords"]:
-                    warnings.append(f"Urgency: {', '.join(h['phishing_keywords'][:3])}")
+                    warnings.append(f"Urgency keywords: {', '.join(h['phishing_keywords'][:3])}")
                 if h["has_generic_greeting"]:
                     warnings.append("No personalisation")
                 if h["excessive_caps"]:
-                    warnings.append("SHOUTING")
+                    warnings.append("Excessive capitalisation")
                 if warnings:
-                    message += f"\n\n🔍 Threats: {' | '.join(warnings)}"
+                    message += f"\n\nThreats detected: {' | '.join(warnings)}"
 
             elif ml_conf < self.CONFIDENCE_THRESHOLD or 4 <= risk < 8:
                 label = "Suspicious"
                 message = (
-                    f"⚠️ Suspicious email detected (ML confidence: {ml_conf:.1%}, Risk: {risk}). "
+                    f"Suspicious email detected (ML confidence: {ml_conf:.1%}, Risk score: {risk}). "
                     "Exercise caution and verify the sender before responding."
                 )
                 concerns = []

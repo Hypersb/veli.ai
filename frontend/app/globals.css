@@ -4,6 +4,7 @@
 
 /* ── CSS custom properties ─────────────────────────────────────────────────── */
 :root {
+  color-scheme: light;
   --bg-primary:   #ffffff;
   --bg-secondary: #f8fafc;
   --text-primary: #0f172a;
@@ -12,6 +13,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   --bg-primary:   #0f172a;
   --bg-secondary: #1e293b;
   --text-primary: #f1f5f9;

@@ -190,13 +190,13 @@ export default function EmailScanner() {
   }
 
   const typeColor: Record<ExampleEmail['type'], string> = {
-    safe:     'text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/20',
-    spam:     'text-orange-600  dark:text-orange-400  border-orange-200  dark:border-orange-800  hover:bg-orange-50  dark:hover:bg-orange-900/20',
-    phishing: 'text-red-600     dark:text-red-400     border-red-200     dark:border-red-800     hover:bg-red-50     dark:hover:bg-red-900/20',
+    safe:     'text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800/60 hover:bg-emerald-50 dark:hover:bg-emerald-900/20',
+    spam:     'text-orange-700  dark:text-orange-400  border-orange-200  dark:border-orange-800/60  hover:bg-orange-50  dark:hover:bg-orange-900/20',
+    phishing: 'text-red-700     dark:text-red-400     border-red-200     dark:border-red-800/60     hover:bg-red-50     dark:hover:bg-red-900/20',
   }
 
   return (
-    <section id="scanner" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <section id="scanner" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       {/* Heading */}
       <div className="text-center mb-10">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
@@ -225,7 +225,6 @@ export default function EmailScanner() {
                 ${typeColor[ex.type]}
               `}
             >
-              {ex.type === 'safe' ? '✅' : ex.type === 'spam' ? '⚠️' : '🚨'}{' '}
               {ex.label}
             </button>
           ))}

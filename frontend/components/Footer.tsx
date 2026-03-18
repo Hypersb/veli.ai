@@ -18,7 +18,7 @@ export default function Footer() {
         {/* Logo + tagline */}
         <div className="text-center mb-6">
           <div className="text-lg font-bold text-gray-900 dark:text-white mb-1">
-            🛡️ Veil
+            Veil
           </div>
           <p className="text-sm text-gray-500 dark:text-slate-400">
             AI-powered email spam &amp; phishing detection
