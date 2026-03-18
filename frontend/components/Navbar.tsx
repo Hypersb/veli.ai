@@ -12,6 +12,8 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+// Dark mode persists under 'veil_theme' (new key) with fallback to old 'theme'
+
 function SunIcon() {
   return (
     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -50,7 +52,7 @@ export default function Navbar() {
     const next = !dark
     setDark(next)
     document.documentElement.classList.toggle('dark', next)
-    localStorage.setItem('theme', next ? 'dark' : 'light')
+    localStorage.setItem('veil_theme', next ? 'dark' : 'light')
   }
 
   const links = [
@@ -96,6 +98,12 @@ export default function Navbar() {
               {label}
             </a>
           ))}
+          <Link
+            href="/api-docs"
+            className="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors"
+          >
+            API
+          </Link>
         </div>
 
         {/* Theme toggle — only render after mount to avoid hydration mismatch */}

@@ -1,9 +1,10 @@
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import type { Metadata } from 'next'
 
-export const metadata = {
-  title: 'Scanner — Veil AI',
-  description: 'Analyse emails for spam and phishing with AI-powered detection.',
+export const metadata: Metadata = {
+  title:       'Scanner — Veil AI',
+  description: 'Paste any email to instantly detect spam, phishing, and scam attempts using AI and machine learning.',
 }
 
 export default function ScannerLayout({ children }: { children: React.ReactNode }) {

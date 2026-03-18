@@ -1,14 +1,17 @@
 {
   "name": "veil-frontend",
-  "version": "1.0.0",
-  "description": "Veil - AI Email Spam & Phishing Detection Frontend",
+  "version": "2.0.0",
+  "description": "Veil - AI Email Spam & Phishing Detection",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "type-check": "tsc --noEmit",
+    "export-model": "python ../scripts/export_model.py",
+    "placeholder-model": "python ../scripts/create_placeholder_model.py"
   },
   "dependencies": {
     "react": "^18.3.1",

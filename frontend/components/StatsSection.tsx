@@ -49,12 +49,11 @@ const METRICS: Metric[] = [
 ]
 
 const TECH_STACK = [
-  { name: 'FastAPI',      color: 'bg-teal-500/10   text-teal-600   dark:text-teal-400   border border-teal-500/20'   },
-  { name: 'Next.js 15',   color: 'bg-gray-100      text-gray-700   dark:bg-slate-800    dark:text-slate-200'         },
-  { name: 'scikit-learn', color: 'bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20' },
-  { name: 'TypeScript',   color: 'bg-blue-500/10   text-blue-600   dark:text-blue-400   border border-blue-500/20'   },
-  { name: 'Pydantic',     color: 'bg-red-500/10    text-red-600    dark:text-red-400    border border-red-500/20'    },
-  { name: 'Tailwind CSS', color: 'bg-cyan-500/10   text-cyan-600   dark:text-cyan-400   border border-cyan-500/20'   },
+  { name: 'Next.js 15',         color: 'bg-gray-100      text-gray-700   dark:bg-slate-800    dark:text-slate-200'         },
+  { name: 'TypeScript',         color: 'bg-blue-500/10   text-blue-600   dark:text-blue-400   border border-blue-500/20'   },
+  { name: 'scikit-learn',       color: 'bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20' },
+  { name: 'Tailwind CSS',       color: 'bg-cyan-500/10   text-cyan-600   dark:text-cyan-400   border border-cyan-500/20'   },
+  { name: 'Vercel Serverless',  color: 'bg-slate-500/10  text-slate-600  dark:text-slate-400  border border-slate-500/20'  },
 ]
 
 export default function StatsSection() {

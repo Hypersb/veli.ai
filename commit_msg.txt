@@ -1,0 +1,19 @@
+feat: V2 zero-backend rebuild — scanner fully working
+
+- Eliminate FastAPI backend; all ML inference runs in Next.js serverless
+- Add frontend/lib/classifier.ts: TF-IDF + Logistic Regression in TypeScript
+- Add frontend/public/model.json: trained model weights (static file)
+- Add POST /api/predict, GET /api/health, GET /api/version routes
+- Rewrite frontend/lib/api.ts: calls /api relative URL, no env var needed
+- Remove Educational portfolio project and FastAPI/Pydantic from UI
+- Add rich result panel: confidence bar, heuristic flags, URL analysis, text heatmap, feedback
+- Add scan history with time-ago format and restore-on-click
+- Add dark mode persisted under veil_theme key
+- Add keyboard shortcuts: Ctrl+Enter, Ctrl+K, Escape
+- Add Share Result button and /result shareable page
+- Add /api-docs documentation page
+- Add live scan counter on homepage seeded at 12847
+- Add FAQ section on homepage
+- Enable TypeScript strict mode; zero errors, zero lint warnings
+- Add LICENSE MIT, CHANGELOG.md, .github/workflows/ci.yml
+- Rewrite README.md with V2 architecture docs
