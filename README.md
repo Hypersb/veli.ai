@@ -134,10 +134,6 @@ Response:
 }
 ```
 
-Full docs: [veliai.vercel.app/api-docs](https://veliai.vercel.app/api-docs)
-
----
-
 ## Model Performance
 
 | Metric    | Score  | Notes                              |
