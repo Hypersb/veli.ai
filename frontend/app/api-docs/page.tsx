@@ -99,6 +99,15 @@ export default function ApiDocsPage() {
           </div>
         </div>
 
+        <div className="mb-10 p-5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800/50">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 mb-2">
+            V3 On-Device Scanner
+          </h2>
+          <p className="text-sm text-emerald-900/90 dark:text-emerald-100/90 leading-relaxed">
+            The scanner page now includes a client-side V3 mode that runs ONNX inference in the browser, adds the AI decision layer, and falls back to the legacy API route if the local model cannot load.
+          </p>
+        </div>
+
         {/* Endpoint */}
         <Section title="Endpoint" id="endpoint">
           <div className="space-y-4">

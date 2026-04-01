@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Veil V3 Security Agent",
+  "version": "3.0.0",
+  "description": "Local Gmail phishing and spam detection with explainable ONNX inference.",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": ["https://mail.google.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Veil V3",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["inference.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

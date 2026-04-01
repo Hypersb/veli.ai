@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Veil V3</title>
+    <style>
+      :root {
+        --bg: #0f172a;
+        --panel: #111827;
+        --text: #e5e7eb;
+        --muted: #94a3b8;
+        --safe: #16a34a;
+        --warn: #f59e0b;
+        --risk: #dc2626;
+      }
+      body {
+        margin: 0;
+        width: 320px;
+        background: radial-gradient(circle at 15% 20%, #1e293b, var(--bg));
+        color: var(--text);
+        font-family: "Segoe UI", Tahoma, sans-serif;
+      }
+      .card {
+        padding: 16px;
+      }
+      .title {
+        margin: 0;
+        font-size: 16px;
+        letter-spacing: 0.4px;
+      }
+      .subtitle {
+        margin: 4px 0 12px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .pill {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .grid {
+        margin-top: 10px;
+        display: grid;
+        gap: 8px;
+      }
+      .item {
+        background: rgba(15, 23, 42, 0.72);
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        border-radius: 10px;
+        padding: 8px 10px;
+      }
+      .key {
+        color: var(--muted);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+      }
+      .value {
+        margin-top: 3px;
+        font-size: 13px;
+        line-height: 1.35;
+      }
+      .empty {
+        color: var(--muted);
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1 class="title">Veil V3 Security Agent</h1>
+      <p class="subtitle">All scanning runs locally in your browser.</p>
+      <div id="content" class="empty">No Gmail scan result yet. Open an email in Gmail to trigger analysis.</div>
+    </div>
+
+    <script>
+      function colorForLabel(label) {
+        if (label === "Safe") return "var(--safe)";
+        if (label === "Suspicious") return "var(--warn)";
+        return "var(--risk)";
+      }
+
+      function render(result) {
+        const content = document.getElementById("content");
+        if (!result) {
+          content.className = "empty";
+          content.textContent = "No Gmail scan result yet. Open an email in Gmail to trigger analysis.";
+          return;
+        }
+
+        const badgeColor = colorForLabel(result.label);
+        content.className = "";
+        content.innerHTML = `
+          <span class="pill" style="background:${badgeColor};">${result.label}</span>
+          <div class="grid">
+            <div class="item"><div class="key">Action</div><div class="value">${result.action}</div></div>
+            <div class="item"><div class="key">Confidence</div><div class="value">${result.confidence}%</div></div>
+            <div class="item"><div class="key">Explanation</div><div class="value">${result.explanation || "No explanation available."}</div></div>
+            <div class="item"><div class="key">Scanned At</div><div class="value">${result.timestamp ? new Date(result.timestamp).toLocaleString() : "Unknown"}</div></div>
+          </div>
+        `;
+      }
+
+      chrome.runtime.sendMessage({ type: "VEIL_GET_LAST_SCAN" }, (response) => {
+        if (!response || !response.ok) {
+          render(null);
+          return;
+        }
+        render(response.data);
+      });
+    </script>
+  </body>
+</html>

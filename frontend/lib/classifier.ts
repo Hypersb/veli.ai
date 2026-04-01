@@ -49,6 +49,13 @@ export interface TopFeature {
   direction: 'spam' | 'safe'
 }
 
+export interface FeatureContributionSummary {
+  topPositiveTokens: string[]
+  topNegativeTokens: string[]
+  mlContribution: number
+  heuristicContribution: number
+}
+
 export interface PredictionResult {
   label: Label
   confidence: number
@@ -58,6 +65,10 @@ export interface PredictionResult {
   urlsFound: string[]
   processingTimeMs: number
   modelVersion: string
+  action?: 'allow' | 'warn' | 'flag' | 'block'
+  explanation?: string
+  contributions?: FeatureContributionSummary
+  inferenceSource?: 'serverless' | 'onnx' | 'api-fallback'
 }
 
 // ── Text preprocessing — must match Python clean_text exactly ─────────────────

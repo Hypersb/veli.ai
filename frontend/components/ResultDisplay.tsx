@@ -106,6 +106,13 @@ const URL_RISK_STYLES: Record<UrlRisk, string> = {
   unknown:   'bg-gray-50   text-gray-700   dark:bg-slate-800/60  dark:text-slate-300  border-gray-200   dark:border-slate-700/50',
 }
 
+const ACTION_STYLES: Record<'allow' | 'warn' | 'flag' | 'block', string> = {
+  allow: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300',
+  warn:  'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300',
+  flag:  'bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-300',
+  block: 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300',
+}
+
 // ── Text heatmap ──────────────────────────────────────────────────────────────
 
 function TextHeatmap({ text, features }: { text: string; features: TopFeature[] }) {
@@ -207,6 +214,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 export default function ResultDisplay({ result, emailText }: Props) {
   const { label, confidence, probability, topFeatures, heuristicFlags, urlsFound, processingTimeMs, modelVersion } = result
   const style = LABEL_STYLES[label]
+  const hasAgentMetadata = Boolean(result.action || result.explanation || result.contributions)
   const [feedbackSent, setFeedbackSent]   = useState(false)
   const [shareCopied, setShareCopied]     = useState(false)
 
@@ -314,6 +322,48 @@ export default function ResultDisplay({ result, emailText }: Props) {
       <p className="text-right text-xs text-gray-400 dark:text-slate-600 mb-1">
         Model {modelVersion}
       </p>
+
+      {hasAgentMetadata && (
+        <Section title="AI Decision Layer">
+          <div className="space-y-3">
+            {result.action && (
+              <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-semibold ${ACTION_STYLES[result.action]}`}>
+                <span>Action</span>
+                <span className="font-mono uppercase">{result.action}</span>
+              </div>
+            )}
+            {result.explanation && (
+              <p className="text-sm text-gray-700 dark:text-slate-300 leading-relaxed">
+                {result.explanation}
+              </p>
+            )}
+            {result.contributions && (
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="rounded-xl border border-gray-200 dark:border-slate-700 bg-white/60 dark:bg-slate-800/60 p-3">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-slate-400 mb-2">Positive tokens</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {result.contributions.topPositiveTokens.length > 0 ? result.contributions.topPositiveTokens.slice(0, 6).map((token) => (
+                      <span key={token} className="text-xs px-2 py-1 rounded-lg bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300">{token}</span>
+                    )) : (
+                      <span className="text-xs text-gray-400 dark:text-slate-500">No strong safe tokens</span>
+                    )}
+                  </div>
+                </div>
+                <div className="rounded-xl border border-gray-200 dark:border-slate-700 bg-white/60 dark:bg-slate-800/60 p-3">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-slate-400 mb-2">Negative tokens</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {result.contributions.topNegativeTokens.length > 0 ? result.contributions.topNegativeTokens.slice(0, 6).map((token) => (
+                      <span key={token} className="text-xs px-2 py-1 rounded-lg bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300">{token}</span>
+                    )) : (
+                      <span className="text-xs text-gray-400 dark:text-slate-500">No strong risky tokens</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </Section>
+      )}
 
       {/* ── Heuristic flags ────────────────────────────────────────────────── */}
       <Section title="Heuristic Analysis">

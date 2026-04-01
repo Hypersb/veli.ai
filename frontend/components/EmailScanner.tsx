@@ -21,6 +21,7 @@ import {
   incrementScanCount,
 } from '@/lib/api'
 import type { PredictionResult, ScanHistoryItem, PredictionLabel } from '@/lib/api'
+import { classifyV3 } from '@/lib/classifierV3'
 import ResultDisplay from './ResultDisplay'
 
 // ── Demo examples ─────────────────────────────────────────────────────────────
@@ -104,6 +105,7 @@ export default function EmailScanner() {
   const [error, setError]             = useState<string | null>(null)
   const [history, setHistory]         = useState<ScanHistoryItem[]>([])
   const [showHistory, setShowHistory] = useState(false)
+  const [scanMode, setScanMode]       = useState<'v3' | 'v2'>('v3')
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
@@ -131,7 +133,7 @@ export default function EmailScanner() {
       setResult(null)
 
       try {
-        const prediction = await predictEmail(trimmed)
+        const prediction = scanMode === 'v3' ? await classifyV3(trimmed) : await predictEmail(trimmed)
         setResult(prediction)
         incrementScanCount()
         const updated = saveScanToHistory(
@@ -147,7 +149,7 @@ export default function EmailScanner() {
         setLoading(false)
       }
     },
-    [emailText, loading]
+    [emailText, loading, scanMode]
   )
 
   const handleClear = useCallback(() => {
@@ -231,6 +233,32 @@ export default function EmailScanner() {
           Paste any email below — our AI detects spam and phishing attempts instantly.
           No account required.
         </p>
+      </div>
+
+      {/* V3 mode switch */}
+      <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-2xl border border-blue-200 dark:border-blue-900/40 bg-blue-50/80 dark:bg-blue-950/20 px-4 py-3">
+        <div>
+          <p className="text-sm font-semibold text-blue-900 dark:text-blue-100">Scan engine</p>
+          <p className="text-xs text-blue-800/80 dark:text-blue-300/80">
+            V3 runs locally in the browser with ONNX and falls back to V2 API if needed.
+          </p>
+        </div>
+        <div className="inline-flex rounded-xl border border-blue-200 dark:border-blue-900/50 bg-white/80 dark:bg-slate-900/60 p-1">
+          <button
+            type="button"
+            onClick={() => setScanMode('v3')}
+            className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors ${scanMode === 'v3' ? 'bg-blue-600 text-white' : 'text-blue-700 dark:text-blue-200 hover:bg-blue-100 dark:hover:bg-slate-800'}`}
+          >
+            On-device V3
+          </button>
+          <button
+            type="button"
+            onClick={() => setScanMode('v2')}
+            className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors ${scanMode === 'v2' ? 'bg-blue-600 text-white' : 'text-blue-700 dark:text-blue-200 hover:bg-blue-100 dark:hover:bg-slate-800'}`}
+          >
+            Legacy V2
+          </button>
+        </div>
       </div>
 
       {/* Demo examples */}
@@ -336,7 +364,7 @@ export default function EmailScanner() {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
-                Scan Email
+                Scan Email {scanMode === 'v3' ? '(V3)' : '(V2)'}
               </>
             )}
           </button>

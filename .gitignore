@@ -40,6 +40,19 @@ Thumbs.db
 # Data (raw dataset — too large for git)
 backend/data/raw/*.csv
 
+# Generated training checkpoints and caches
+scripts/_distilbert_checkpoint/
+*.onnx.data
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.cache/
+tmp/
+temp/
+*.tmp
+*.cache
+
 # Models are included in git (tiny: ~130 KB total) so deployment doesn't need to retrain
 # backend/models/*.pkl
 

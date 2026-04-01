@@ -159,14 +159,53 @@ Dataset: SMS Spam Collection (~5,500 messages, 80/20 split, random_state=42)
 
 ---
 
-## Roadmap
+## V3
 
-**V3 ideas:**
-- ONNX model for in-browser inference (zero server round-trip)
-- DistilBERT fine-tuned on phishing datasets
-- Chrome Extension — scan Gmail directly
-- Dataset expansion with email-specific corpora
-- Multi-language support
+Veil now includes the on-device V3 stack alongside the existing V2 experience:
+
+- ONNX in-browser inference with a local fallback path
+- DistilBERT export pipeline for a 4-class threat model
+- Chrome Extension for Gmail scanning
+- AI decision layer with allow / warn / flag / block actions
+- Explainability metadata for token-level contributions
+- Adversarial normalization, domain-risk heuristics, and local feedback adjustments
+
+Extension setup details are in [chrome-extension/README.md](chrome-extension/README.md).
+
+---
+
+## 🧩 Evolution: V2 → V3
+
+V2 was the foundation of Veil: a lightweight, zero-backend spam and phishing detector built around classic TF-IDF features, heuristic checks, and a simple serverless API. V3 is the advanced upgrade, moving the product from a classifier into an on-device AI security agent with richer reasoning, stronger robustness, and browser-native deployment.
+
+V2 features:
+
+- TF-IDF + Logistic Regression
+- Serverless inference via Next.js API
+- Heuristic spam detection (URLs, urgency, scams)
+- Text heatmap
+- Public API and shareable results
+- No external backend
+
+V3 features:
+
+- ONNX client-side inference
+- DistilBERT model
+- AI agent decision layer (actions + reasoning)
+- Explainable AI (token-level contributions)
+- Adversarial robustness
+- Chrome Extension (Gmail integration)
+- Fully on-device inference
+
+| Capability | V2 | V3 |
+|---|---|---|
+| Inference Location | Next.js serverless API | Browser, extension, and on-device runtime |
+| Model Type | TF-IDF + Logistic Regression | DistilBERT + ONNX client-side inference |
+| Explainability | Rule-based flags and text heatmap | Token-level contributions with AI reasoning |
+| Security Approach | Heuristics and URL checks | AI agent actions, robustness, and domain-risk analysis |
+| Deployment | Public web app and API | Web app, API, and Chrome Extension |
+
+V3 transforms Veil from a classifier into an autonomous AI security agent.
 
 ---
 
